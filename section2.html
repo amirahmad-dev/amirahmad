@@ -1,0 +1,106 @@
+<style>
+.section-2 {
+  display:flex;
+  justify-content:center;
+  width:100%;
+  min-height:100vh;
+  padding:28px;
+  box-sizing:border-box;
+}
+
+.s2-container {
+  display:flex;
+  flex-direction:column;
+  width:min(1080px,92vw);
+  height:100%;
+  gap:20px;
+  margin-top:100px; /* این عدد را کم و زیاد کن تا کارت‌ها پایین‌تر بیایند */
+  -webkit-overflow-scrolling: touch;
+
+}
+
+.s2-top-row {
+  display:flex;
+  gap:16px;
+  height:120px; /* ارتفاع ردیف بالا */
+  flex-shrink:0;
+}
+
+.s2-card {
+  flex:1;
+  background: rgba(255,255,255,0.55);
+  border-radius:18px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-weight:700;
+  cursor:pointer;
+  transition:transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+
+/* هاور کارت */
+.s2-card:hover,
+.s2-card.active {
+  transform:scale(1.00);
+  box-shadow:0 0 30px rgba(255,255,255,0.45), 0 18px 50px rgba(0,0,0,0.14);
+  background: rgb(255, 255, 255); /* رنگ روشن‌تر روی کارت */
+}
+
+.s2-big-card {
+  flex:1 1 auto;   /* کارت بزرگ تمام فضای باقی مانده را می‌گیرد */
+  background: rgba(255,255,255,0.65);
+  border-radius:18px;
+  padding:30px;
+  overflow:hidden;  /* مهم: اجازه اسکرول فقط داخل عکس نیست */
+  overflow-y:auto;
+  min-height:570px; /* ارتفاع ثابت */
+  max-height:570px; /* ارتفاع کارت ثابت */
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  -webkit-overflow-scrolling: touch;
+  
+}
+.chat-messages {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch; /* اسکرول روان موبایل */
+  max-height: 60vh; /* یا هر ارتفاعی که می‌خواهید */
+  padding: 12px;
+  }
+.s2-placeholder {
+  text-align:center;
+  margin-top:50px;
+  opacity:0.6;
+}
+
+.fade {
+  animation: fadeIn .35s ease;
+}
+
+
+
+
+@keyframes fadeIn {
+  from {opacity:0; transform:translateY(10px);}
+  to {opacity:1; transform:translateY(0);}
+}
+</style>
+
+<section class="section-2">
+  <div class="s2-container">
+
+    <!-- کارت‌های کوچک -->
+    <div class="s2-top-row">
+      <div class="s2-card model-btn" data-model="m1">موکاپ تجاری</div>
+      <div class="s2-card model-btn" data-model="m2">حذف پس‌زمینه محصول</div>
+      <div class="s2-card model-btn" data-model="m3">چت‌بات پشتیبانی رستوران</div>
+    </div>
+
+    <!-- کارت بزرگ -->
+    <div class="s2-big-card" id="s2-output">
+      <div class="s2-placeholder">یک مدل را انتخاب کنید</div>
+    </div>
+
+  </div>
+</section>
