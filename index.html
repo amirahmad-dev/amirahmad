@@ -1085,7 +1085,8 @@ function initSection2(){
             removeBtn.onclick = async (e) => {
               e.stopPropagation();
               const form = new FormData();
-              form.append("image_path", uploadedImage.src.split("?")[0]);
+              //form.append("image_path", uploadedImage.src.split("?")[0]);
+              form.append("image_path", rawImagePath);
               form.append("selected_id", select.value);
               const res = await fetch(`${API_BASE}/m2/confirm`, {method: "POST", body: form});
               const {result_png} = await res.json();
@@ -1326,6 +1327,7 @@ goTo(0);
 
 </body>
 </html>
+
 
 
 
