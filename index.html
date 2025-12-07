@@ -1056,7 +1056,7 @@ function initSection2(){
               const res = await fetch(`${API_BASE}/m2/upload`, {method: "POST", body: form});
               const data = await res.json();
 
-              uploadedImage.src = data.image_path + "?t=" + Date.now();
+              uploadedImage.src = data.image_path.replace("127.0.0.1:8000", location.host).replace("http://", "https://");
               uploadedImage.style.display = "block";
               placeholder.style.display = "none";
               select.innerHTML = "";
