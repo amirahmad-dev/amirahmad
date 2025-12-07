@@ -792,6 +792,7 @@ const sectionsEl = document.getElementById('sections');
 const dots = Array.from(document.querySelectorAll('.dot'));
 let currentIndex = 0;
 const totalSections = 3;
+let rawImagePath = null;
 
 //اجازه سابمیت ندارن
 window.addEventListener("submit", e => {
@@ -1056,6 +1057,7 @@ function initSection2(){
               const res = await fetch(`${API_BASE}/m2/upload`, {method: "POST", body: form});
               const data = await res.json();
 
+              rawImagePath = data.raw_image_path; //اضافه شد
               uploadedImage.src = data.image_path + "?t=" + Date.now();
               uploadedImage.style.display = "block";
               placeholder.style.display = "none";
@@ -1085,9 +1087,8 @@ function initSection2(){
             removeBtn.onclick = async (e) => {
               e.stopPropagation();
               const form = new FormData();
+              form.append("image_path", rawImagePath.src.split("?")[0]);
               //form.append("image_path", uploadedImage.src.split("?")[0]);
-              form.append("raw_image_path", rawImagePath);
-              form.append("objects", JSON.stringify(objectsFromUpload));
               form.append("selected_id", select.value);
               const res = await fetch(`${API_BASE}/m2/confirm`, {method: "POST", body: form});
               const {result_png} = await res.json();
@@ -1328,6 +1329,7 @@ goTo(0);
 
 </body>
 </html>
+
 
 
 
