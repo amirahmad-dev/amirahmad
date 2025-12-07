@@ -951,8 +951,12 @@ function initSection2(){
             <label id="upload-label" for="image-upload" style="padding:12px 24px;border-radius:12px;background:#4A90E2;color:#fff;cursor:pointer;font-weight:700;">
               انتخاب فایل
             </label>
-            <div style="display:none;font-weight:400;color:#333;margin:10px 0 -15px;">محصول مورد نظر را انتخاب کنید:</div>
-            <select id="object-select" style="display:none;padding:8px;border-radius:8px;"></select>
+            <div id="object-select-wrapper" style="display:none;flex-direction:column;gap:6px;align-items:center;">
+              <span id="object-select-label" style="font-size:14px;color:#444;font-weight:600;">
+                محصول مورد نظر را انتخاب کنید:
+              </span>
+              <select id="object-select" style="display:none;padding:8px;border-radius:8px;"></select>
+            </div>
             <button type="button" id="remove-bg-btn" style="display:none;padding:12px 24px;border-radius:12px;background:#4A90E2;color:#fff;font-weight:700;cursor:pointer;border:none;">
               حذف پس‌زمینه
             </button>
@@ -1033,6 +1037,7 @@ function initSection2(){
             const select = document.getElementById("object-select");
             const removeBtn = document.getElementById("remove-bg-btn");
             const downloadBtn = document.getElementById("download-btn");
+            const selectWrapper = document.getElementById("object-select-wrapper");
 
 
             uploadLabel.addEventListener("click", ev => {
@@ -1043,7 +1048,7 @@ function initSection2(){
                 uploadedImage.src = "";
                 uploadedImage.style.display = "none";
                 placeholder.style.display = "block";
-                select.style.display = "none";
+                selectWrapper.style.display = "none";
                 removeBtn.style.display = "none";
                 downloadBtn.style.display = "none";
                 uploadLabel.textContent = "انتخاب فایل";
@@ -1075,7 +1080,7 @@ function initSection2(){
                 placeholder.style.display = "none";
                 select.innerHTML = "";
                 data.objects.forEach(o => select.add(new Option(`شیء ${o.id}`, o.id)));
-                select.style.display = "block";
+                selectWrapper.style.display = "flex";
                 removeBtn.style.display = "inline-block";
                 uploadLabel.textContent = "شروع از اول";
                 } finally {
@@ -1090,7 +1095,7 @@ function initSection2(){
               uploadedImage.src = "";
               uploadedImage.style.display = "none";
               placeholder.style.display = "block";
-              select.style.display = "none";
+              selectWrapper.style.display = "none";
               removeBtn.style.display = "none";
               downloadBtn.style.display = "none";
               uploadLabel.textContent = "انتخاب فایل";
@@ -1113,7 +1118,7 @@ function initSection2(){
                 uploadedImage.src = result_png;
                 downloadBtn.href = result_png;
                 downloadBtn.style.display = "inline-block";
-                select.style.display = "none";
+                selectWrapper.style.display = "none";
                 removeBtn.style.display = "none";
                 uploadLabel.textContent = "شروع از اول";
                 } finally {
@@ -1350,6 +1355,7 @@ goTo(0);
 
 </body>
 </html>
+
 
 
 
