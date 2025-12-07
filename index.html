@@ -1081,6 +1081,7 @@ function initSection2(){
                 select.innerHTML = "";
                 data.objects.forEach(o => select.add(new Option(`شیء ${o.id}`, o.id)));
                 selectWrapper.style.display = "flex";
+                select.style.display = "block";
                 removeBtn.style.display = "inline-block";
                 uploadLabel.textContent = "شروع از اول";
                 } finally {
@@ -1355,6 +1356,7 @@ goTo(0);
 
 </body>
 </html>
+
 
 
 
