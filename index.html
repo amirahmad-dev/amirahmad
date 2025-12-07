@@ -514,6 +514,10 @@ body, #app, #sections, .dots, #s2-container {
   width: 0;
   height: 0;
 }
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 /* ======== MOBILE ROTATION (max-width:720px) ========= */
 @media (max-width: 720px) {
 
@@ -938,6 +942,10 @@ function initSection2(){
             <div id="image-box" style="width:700px;height:300px;background:#f0f0f0;border:2px dashed #ccc;border-radius:16px;display:flex;justify-content:center;align-items:center;position:relative;overflow:hidden;">
               <span id="image-placeholder" style="position:absolute;color:#666;font-size:1.1rem;">عکس محصول را آپلود کنید</span>
               <img id="uploaded-image" src="" style="max-width:100%;max-height:100%;object-fit:contain;display:none;border-radius:12px;"/>
+              <div id="loading" style="display:none;position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(255,255,255,0.8);z-index:10;justify-content:center;align-items:center;flex-direction:column;display:flex;">
+                <div class="spinner" style="border: 8px solid #f3f3f3; border-top: 8px solid #4A90E2; border-radius: 50%; width: 80px; height: 80px; animation: spin 1s linear infinite;"></div>
+                <p style="margin-top:20px;font-size:18px;color:#333;">لطفا صبر کنید...</p>
+              </div>
             </div>
             <input type="file" id="image-upload" accept="image/*" style="display:none"/>
             <label id="upload-label" for="image-upload" style="padding:12px 24px;border-radius:12px;background:#4A90E2;color:#fff;cursor:pointer;font-weight:700;">
@@ -1050,22 +1058,28 @@ function initSection2(){
               const file = e.target.files[0];
               if (!file) return;
               // ادامه عملیات fetch
+              const loading = document.getElementById("loading");
+              loading.style.display = "flex"; // نمایش لودینگ
             
             
-              const form = new FormData();
-              form.append("file", file);
-              const res = await fetch(`${API_BASE}/m2/upload`, {method: "POST", body: form});
-              const data = await res.json();
+              try {
+                const form = new FormData();
+                form.append("file", file);
+                const res = await fetch(`${API_BASE}/m2/upload`, {method: "POST", body: form});
+                const data = await res.json();
 
-              uploadedImage.dataset.raw = data.raw_image_path; //اضافه شد
-              uploadedImage.src = data.image_path + "?t=" + Date.now();
-              uploadedImage.style.display = "block";
-              placeholder.style.display = "none";
-              select.innerHTML = "";
-              data.objects.forEach(o => select.add(new Option(`شیء ${o.id}`, o.id)));
-              select.style.display = "block";
-              removeBtn.style.display = "inline-block";
-              uploadLabel.textContent = "شروع از اول";
+                uploadedImage.dataset.raw = data.raw_image_path; //اضافه شد
+                uploadedImage.src = data.image_path + "?t=" + Date.now();
+                uploadedImage.style.display = "block";
+                placeholder.style.display = "none";
+                select.innerHTML = "";
+                data.objects.forEach(o => select.add(new Option(`شیء ${o.id}`, o.id)));
+                select.style.display = "block";
+                removeBtn.style.display = "inline-block";
+                uploadLabel.textContent = "شروع از اول";
+                } finally {
+                  loading.style.display = "none"; // مخفی کردن لودینگ بعد از اتمام
+                }
             });
 
               // تبدیل دکمه به "شروع از اول"
@@ -1086,18 +1100,24 @@ function initSection2(){
 
             removeBtn.onclick = async (e) => {
               e.stopPropagation();
-              const form = new FormData();
-              form.append("image_path", uploadedImage.dataset.raw);
-              //form.append("image_path", uploadedImage.src.split("?")[0]);
-              form.append("selected_id", select.value);
-              const res = await fetch(`${API_BASE}/m2/confirm`, {method: "POST", body: form});
-              const {result_png} = await res.json();
-              uploadedImage.src = result_png;
-              downloadBtn.href = result_png;
-              downloadBtn.style.display = "inline-block";
-              select.style.display = "none";
-              removeBtn.style.display = "none";
-              uploadLabel.textContent = "شروع از اول";
+              const loading = document.getElementById("loading");
+              loading.style.display = "flex"; // نمایش لودینگ
+              try {
+                const form = new FormData();
+                form.append("image_path", uploadedImage.dataset.raw);
+                //form.append("image_path", uploadedImage.src.split("?")[0]);
+                form.append("selected_id", select.value);
+                const res = await fetch(`${API_BASE}/m2/confirm`, {method: "POST", body: form});
+                const {result_png} = await res.json();
+                uploadedImage.src = result_png;
+                downloadBtn.href = result_png;
+                downloadBtn.style.display = "inline-block";
+                select.style.display = "none";
+                removeBtn.style.display = "none";
+                uploadLabel.textContent = "شروع از اول";
+                } finally {
+                  loading.style.display = "none"; // مخفی کردن لودینگ بعد از اتمام
+                }
             };
           }
 
@@ -1329,6 +1349,7 @@ goTo(0);
 
 </body>
 </html>
+
 
 
 
