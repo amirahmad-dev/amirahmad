@@ -1057,7 +1057,7 @@ function initSection2(){
               const res = await fetch(`${API_BASE}/m2/upload`, {method: "POST", body: form});
               const data = await res.json();
 
-              rawImagePath = data.raw_image_path; //اضافه شد
+              uploadedImage.dataset.raw = data.raw_image_path; //اضافه شد
               uploadedImage.src = data.image_path + "?t=" + Date.now();
               uploadedImage.style.display = "block";
               placeholder.style.display = "none";
@@ -1087,7 +1087,7 @@ function initSection2(){
             removeBtn.onclick = async (e) => {
               e.stopPropagation();
               const form = new FormData();
-              form.append("image_path", rawImagePath.src.split("?")[0]);
+              form.append("image_path", uploadedImage.dataset.raw);
               //form.append("image_path", uploadedImage.src.split("?")[0]);
               form.append("selected_id", select.value);
               const res = await fetch(`${API_BASE}/m2/confirm`, {method: "POST", body: form});
@@ -1329,6 +1329,7 @@ goTo(0);
 
 </body>
 </html>
+
 
 
 
