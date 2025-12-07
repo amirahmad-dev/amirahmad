@@ -490,11 +490,13 @@ body, #app, #sections, .dots, #s2-container {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.section-2 .back-to-top,
-.section-3 .back-to-top {
-  top: 10px;
+.section-2 .back-to-top {
+  top: 23px;
+  right: 50px;
 }
-
+.section-3 .back-to-top {
+  top: 0px;
+}
 
 .back-to-top:hover {
   transform: scale(1.02);
@@ -827,6 +829,9 @@ function goTo(index) {
   // call section initers when arriving:
   if (index === 1) initSection2();
   if (index === 2) initSection3();
+  if (index !== 2) {
+    resetSection3();
+  }
 }
 
 // dots click
@@ -1165,6 +1170,16 @@ function initSection3(){
         });
     });
 }
+function resetSection3(){
+  const container = document.getElementById("s3-container");
+
+  // پاک شدن کامل کارت
+  container.innerHTML = "";
+
+  // اجازه بده دفعه بعد دوباره لود شود
+  initSection3._done = false;
+}
+
 
 /* ================= tilt effect فقط برای بخش 1 ================= */
 (function initTiltForSection1(){
