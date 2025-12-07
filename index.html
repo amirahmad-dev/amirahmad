@@ -944,13 +944,14 @@ function initSection2(){
               <img id="uploaded-image" src="" style="max-width:100%;max-height:100%;object-fit:contain;display:none;border-radius:12px;"/>
               <div id="loading" style="display:none;position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(255,255,255,0.8);z-index:10;justify-content:center;align-items:center;flex-direction:column;">
                 <div class="spinner" style="border: 8px solid #f3f3f3; border-top: 8px solid #4A90E2; border-radius: 50%; width: 80px; height: 80px; animation: spin 1s linear infinite;"></div>
-                <p style="margin-top:20px;font-size:18px;color:#333;">لطفا صبر کنید...</p>
+                <p style="margin-top:20px;font-size:18px;color:#333;">لطفا صبر کنید</p>
               </div>
             </div>
             <input type="file" id="image-upload" accept="image/*" style="display:none"/>
             <label id="upload-label" for="image-upload" style="padding:12px 24px;border-radius:12px;background:#4A90E2;color:#fff;cursor:pointer;font-weight:700;">
               انتخاب فایل
             </label>
+            <div style="font-weight:700;color:#333;margin:10px 0 -15px;">محصول مورد نظر را انتخاب کنید:</div>
             <select id="object-select" style="display:none;padding:8px;border-radius:8px;"></select>
             <button type="button" id="remove-bg-btn" style="display:none;padding:12px 24px;border-radius:12px;background:#4A90E2;color:#fff;font-weight:700;cursor:pointer;border:none;">
               حذف پس‌زمینه
@@ -1349,6 +1350,7 @@ goTo(0);
 
 </body>
 </html>
+
 
 
 
