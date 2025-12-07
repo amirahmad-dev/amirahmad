@@ -716,6 +716,10 @@ body, #app, #sections, .dots, #s2-container {
     padding: 8px 16px;
     font-size: 10px;
   }
+  #m3-label { 
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
 
 }
 
@@ -927,7 +931,7 @@ function initSection2(){
       const models = {
         m1: `
           <div style="display:flex;flex-direction:column;align-items:center;text-align:center;direction:rtl;gap:16px;width:100%;padding:20px;">
-            <h2>جاگذاری لوگو و متن در موکاپ</h2>
+            <h2 id="m3-label">جاگذاری لوگو و متن در موکاپ</h2>
             <input type="file" id="logo-input" accept="image/*" style="display:none"/>
             <label for="logo-input" id="logo-label" style="padding:12px 24px;border-radius:12px;background:#4A90E2;color:#fff;font-weight:700;cursor:pointer;">
               انتخاب لوگو
@@ -1370,6 +1374,7 @@ goTo(0);
 
 </body>
 </html>
+
 
 
 
