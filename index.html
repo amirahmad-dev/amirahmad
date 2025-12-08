@@ -1053,6 +1053,7 @@ function initSection2(){
               const {output_url} = await procRes.json();
 
               downloadBtn.href = output_url;
+              downloadBtn.setAttribute("download", "final-mockup.png");
               downloadBtn.style.display = "inline-block";
             };
 
@@ -1153,6 +1154,7 @@ function initSection2(){
                 const {result_png} = await res.json();
                 uploadedImage.src = result_png;
                 downloadBtn.href = result_png;
+                downloadBtn.setAttribute("download", "result.png");
                 downloadBtn.style.display = "inline-block";
                 selectWrapper.style.display = "none";
                 removeBtn.style.display = "none";
@@ -1391,6 +1393,7 @@ goTo(0);
 
 </body>
 </html>
+
 
 
 
